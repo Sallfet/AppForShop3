@@ -1,9 +1,13 @@
 package com.viktorkrasnovid.appforshop3.db.Entity;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity
+@Entity(foreignKeys =
+@ForeignKey(entity = Category.class,
+parentColumns = "id",
+childColumns = "categoryId"))
 public class Product {
 
     @PrimaryKey(autoGenerate = true)

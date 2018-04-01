@@ -1,23 +1,31 @@
 package com.viktorkrasnovid.appforshop3.db.DAO;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
 import com.viktorkrasnovid.appforshop3.db.Entity.Product;
+
+import java.util.List;
 
 @Dao
 public interface ProductDAO {
 
     @Insert
-    public void insert(Product product);
+    void insert(Product product);
 
     @Delete
-    public void delete(Product product);
+    void delete(Product product);
 
     @Update
-    public void update(Product product);
+    void update(Product product);
 
+    @Query("SELECT * FROM product")
+    LiveData<List<Product>> getAllProducts();
 
+    @Query("SELECT * FROM product WHERE id = :id")
+    LiveData<Product> getById(int id);
 }
