@@ -7,7 +7,7 @@ import android.arch.persistence.room.PrimaryKey;
 public class Category {
 
     @PrimaryKey(autoGenerate = true)
-    private long id;
+    private int id;
     private final String name;
     private final String color;
 
@@ -16,8 +16,12 @@ public class Category {
         this.color = color;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -26,5 +30,12 @@ public class Category {
 
     public String getColor() {
         return color;
+    }
+
+    public static Category[] populateData() {
+        return new Category[]{
+                new Category("Фрукты", "Yellow"),
+                new Category("Мясо", "Red")
+        };
     }
 }

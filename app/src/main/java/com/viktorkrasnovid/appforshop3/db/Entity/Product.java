@@ -4,14 +4,14 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity(foreignKeys =
+@Entity(foreignKeys = {
 @ForeignKey(entity = Category.class,
 parentColumns = "id",
-childColumns = "categoryId"))
+childColumns = "categoryId")})
 public class Product {
 
     @PrimaryKey(autoGenerate = true)
-    private long id;
+    private int id;
     private final String name;
     private final long categoryId;
 
@@ -20,15 +20,34 @@ public class Product {
         this.categoryId = categoryId;
     }
 
-    public long getId() {
+    public String getName() {
+        return name;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public long getCategoryId() {
         return categoryId;
     }
+
+    //method for pre-populate DB
+    public static Product[] populateDao(){
+        return new Product[]{
+                new Product( "Яблоки", 1),
+                new Product("Колбаса", 2)
+        };
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
+
+
 }

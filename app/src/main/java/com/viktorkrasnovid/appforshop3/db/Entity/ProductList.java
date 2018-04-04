@@ -9,20 +9,17 @@ import com.viktorkrasnovid.appforshop3.model.ProductListKind;
 public class ProductList {
 
     @PrimaryKey(autoGenerate = true)
-    private long id;
+    private int id;
     private final String name;
     private final String description;
     private final int kindId;
 
-    public ProductList(String name, String description, ProductListKind kind) {
+    public ProductList(String name, String description, int kindId) {
         this.name = name;
         this.description = description;
-        this.kindId = kind.getId();
+        this.kindId = kindId;
     }
 
-    public long getId() {
-        return id;
-    }
 
     public String getName() {
         return name;
@@ -34,5 +31,13 @@ public class ProductList {
 
     public int getKindId() {
         return kindId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
