@@ -22,7 +22,7 @@ public class ProductViewModel extends AndroidViewModel {
     public LiveData<List<Product>> getData() {
         if (data == null) {
             Context context = getApplication();
-            data = AppDatabase.getDatabase(context).productDAO().getAllProducts();
+            data = AppDatabase.executeAndGet(() -> AppDatabase.getDatabase(context).productDAO().getAllProducts());
         }
         return data;
     }

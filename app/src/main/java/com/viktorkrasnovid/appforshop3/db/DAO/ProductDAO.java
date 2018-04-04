@@ -24,7 +24,7 @@ public interface ProductDAO {
     LiveData<List<Product>> getAllProducts();
 
     @Query("SELECT * FROM product WHERE id = :id")
-    LiveData<Product> getById(int id);
+    Product getById(int id);
 
     @Insert
     void insertAll(Product... products);

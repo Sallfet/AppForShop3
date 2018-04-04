@@ -37,6 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
         FloatingActionButton testButton = findViewById(R.id.newShoppingList);
 
-        testButton.setOnClickListener(v -> AppDatabase.execute(() -> AppDatabase.getDatabase(getApplicationContext()).productDAO().insertAll(new Product(3, "Potato", 1))));
+        testButton.setOnClickListener(v -> AppDatabase.execute(() -> AppDatabase.getDatabase(getApplicationContext()).productDAO().insertAll(new Product("Potato", 1))));
     }
 }
