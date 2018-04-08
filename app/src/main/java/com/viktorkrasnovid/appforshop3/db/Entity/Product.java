@@ -2,6 +2,7 @@ package com.viktorkrasnovid.appforshop3.db.Entity;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity(foreignKeys = {
@@ -14,6 +15,8 @@ public class Product {
     private int id;
     private final String name;
     private final long categoryId;
+    private int count;
+    private int measureId;
 
     public Product(String name, long categoryId) {
         this.name = name;
@@ -49,5 +52,30 @@ public class Product {
         return this.name;
     }
 
+    public int getCount() {
+        return count;
+    }
 
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public int getMeasureId() {
+        return measureId;
+    }
+
+    public void setMeasureId(int measureId) {
+        this.measureId = measureId;
+    }
+
+
+    public void incrementCount() {
+        this.count++;
+    }
+
+    public void decrementCount() {
+        if (this.count > 0) {
+            this.count--;
+        }
+    }
 }

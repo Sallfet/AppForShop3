@@ -26,5 +26,8 @@ public interface CategoryDAO {
     Category getById(int id);
 
     @Insert
-    void insertAll(Category... categories);
+    long[] insertAll(Category... categories);
+
+    @Insert
+    long insert(Category category);
 }

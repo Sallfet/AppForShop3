@@ -15,7 +15,7 @@ import java.util.List;
 public interface ProductListDAO {
 
     @Insert
-    void insert(ProductList list);
+    long insert(ProductList list);
 
     @Delete
     void delete(ProductList list);

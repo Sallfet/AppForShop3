@@ -23,7 +23,7 @@ public class TypeNewShoppingListName extends AppCompatActivity {
 
         okListName.setOnClickListener(v -> {
             Intent intent = new Intent(this, ShoppingListCreating.class);
-            intent.putExtra("listName", namePicker.getText());
+            intent.putExtra("listName", namePicker.getText().toString());
             startActivity(intent);
         });
     }

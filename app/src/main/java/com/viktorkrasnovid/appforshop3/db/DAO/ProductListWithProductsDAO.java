@@ -14,7 +14,7 @@ import com.viktorkrasnovid.appforshop3.db.Entity.ProductListWithProducts;
 import java.util.List;
 
 @Dao
-public interface ProductListProductDAO {
+public interface ProductListWithProductsDAO {
 
     @Insert
     void insert(ProductListWithProducts join);

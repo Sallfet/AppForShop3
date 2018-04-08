@@ -13,10 +13,10 @@ import android.arch.persistence.room.ForeignKey;
                                    childColumns = "productListId")})
 public class ProductListWithProducts {
 
-    public final int productId;
-    public final int productListId;
+    public final long productId;
+    public final long productListId;
 
-    public ProductListWithProducts(int productId, int productListId) {
+    public ProductListWithProducts(long productId, long productListId) {
         this.productId = productId;
         this.productListId = productListId;
     }

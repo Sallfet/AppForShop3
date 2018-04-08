@@ -10,7 +10,7 @@ import android.support.annotation.NonNull;
 import com.viktorkrasnovid.appforshop3.db.DAO.CategoryDAO;
 import com.viktorkrasnovid.appforshop3.db.DAO.ProductDAO;
 import com.viktorkrasnovid.appforshop3.db.DAO.ProductListDAO;
-import com.viktorkrasnovid.appforshop3.db.DAO.ProductListProductDAO;
+import com.viktorkrasnovid.appforshop3.db.DAO.ProductListWithProductsDAO;
 import com.viktorkrasnovid.appforshop3.db.Entity.Category;
 import com.viktorkrasnovid.appforshop3.db.Entity.Product;
 import com.viktorkrasnovid.appforshop3.db.Entity.ProductList;
@@ -23,7 +23,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract ProductDAO productDAO();
     public abstract CategoryDAO categoryDAO();
-    public abstract ProductListProductDAO productListProductJoinDAO();
+    public abstract ProductListWithProductsDAO productListWithProductsDAO();
     public abstract ProductListDAO productListDAO();
 
     private static AppDatabase INSTANCE;
