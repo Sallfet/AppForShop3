@@ -34,8 +34,8 @@ public class Category {
 
     public static Category[] populateData() {
         return new Category[]{
-                new Category("Фрукты", "Yellow"),
-                new Category("Мясо", "Red")
+                new Category("Fruits", "Yellow"),
+                new Category("Meat", "Red")
         };
     }
 }

@@ -1,28 +1,30 @@
 package com.viktorkrasnovid.appforshop3;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class TypeNewShoppingListName extends AppCompatActivity {
 
-    Button okNameButton;
-    Button cancelNameButton;
+    TextView okListName;
+    EditText namePicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_type_new_shopping_list_name);
 
-        okNameButton = findViewById(R.id.okNameButton);
-        cancelNameButton = findViewById(R.id.cancelNameButton);
+        namePicker = findViewById(R.id.name_picker);
 
-        okNameButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        okListName = findViewById(R.id.ok_name_button);
 
-            }
+        okListName.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ShoppingListCreating.class);
+            intent.putExtra("listName", namePicker.getText());
+            startActivity(intent);
         });
     }
 }

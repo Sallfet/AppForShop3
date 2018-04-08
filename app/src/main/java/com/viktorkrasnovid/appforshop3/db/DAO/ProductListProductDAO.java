@@ -9,7 +9,7 @@ import android.arch.persistence.room.Update;
 
 import com.viktorkrasnovid.appforshop3.db.Entity.Product;
 import com.viktorkrasnovid.appforshop3.db.Entity.ProductList;
-import com.viktorkrasnovid.appforshop3.db.Entity.ProductListProductJoin;
+import com.viktorkrasnovid.appforshop3.db.Entity.ProductListWithProducts;
 
 import java.util.List;
 
@@ -17,13 +17,13 @@ import java.util.List;
 public interface ProductListProductDAO {
 
     @Insert
-    void insert(ProductListProductJoin join);
+    void insert(ProductListWithProducts join);
 
     @Update
-    void update(ProductListProductJoin join);
+    void update(ProductListWithProducts join);
 
     @Delete
-    void delete(ProductListProductJoin join);
+    void delete(ProductListWithProducts join);
 
     @Query("SELECT * FROM product INNER JOIN productlist_product_join on product.id = productlist_product_join.productId WHERE productListId = :id")
     LiveData<List<Product>> getAllProductsByProductListId(int id);

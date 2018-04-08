@@ -7,6 +7,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.viktorkrasnovid.appforshop3.db.AppDatabase;
+import com.viktorkrasnovid.appforshop3.db.DBUtils;
 import com.viktorkrasnovid.appforshop3.db.Entity.Product;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class ProductViewModel extends AndroidViewModel {
     public LiveData<List<Product>> getData() {
         if (data == null) {
             Context context = getApplication();
-            data = AppDatabase.executeAndGet(() -> AppDatabase.getDatabase(context).productDAO().getAllProducts());
+            data = DBUtils.executeAndGet(() -> AppDatabase.getDatabase(context).productDAO().getAllProducts());
         }
         return data;
     }

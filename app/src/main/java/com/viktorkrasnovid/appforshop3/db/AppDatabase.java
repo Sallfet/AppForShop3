@@ -14,18 +14,16 @@ import com.viktorkrasnovid.appforshop3.db.DAO.ProductListProductDAO;
 import com.viktorkrasnovid.appforshop3.db.Entity.Category;
 import com.viktorkrasnovid.appforshop3.db.Entity.Product;
 import com.viktorkrasnovid.appforshop3.db.Entity.ProductList;
-import com.viktorkrasnovid.appforshop3.db.Entity.ProductListProductJoin;
+import com.viktorkrasnovid.appforshop3.db.Entity.ProductListWithProducts;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Product.class, Category.class, ProductList.class, ProductListProductJoin.class}, version = 1)
+@Database(entities = {Product.class, Category.class, ProductList.class, ProductListWithProducts.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract ProductDAO productDAO();
     public abstract CategoryDAO categoryDAO();
-    public abstract ProductListProductDAO productListProductDAO();//todo delete it?
+    public abstract ProductListProductDAO productListProductJoinDAO();
     public abstract ProductListDAO productListDAO();
 
     private static AppDatabase INSTANCE;
@@ -44,28 +42,12 @@ public abstract class AppDatabase extends RoomDatabase {
                 super.onCreate(db);
                 Executors.newSingleThreadScheduledExecutor().execute(new Runnable() {
                     @Override
-                    public void run() {
+                    public void run() {//DB pre-populating
                         getDatabase(context).categoryDAO().insertAll(Category.populateData());
                         getDatabase(context).productDAO().insertAll(Product.populateDao());
                     }
                 });
             }
         }).build();
-    }
-
-    public static void execute(Runnable r) {
-        Executors.newSingleThreadScheduledExecutor().execute(r);
-    }
-
-    public static <V> V executeAndGet(Callable<V> callable) {
-        try {
-            return Executors.newSingleThreadScheduledExecutor().submit(callable).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return null;
     }
 }

@@ -11,12 +11,12 @@ import android.arch.persistence.room.ForeignKey;
                        @ForeignKey(entity = ProductList.class,
                                    parentColumns = "id",
                                    childColumns = "productListId")})
-public class ProductListProductJoin {
+public class ProductListWithProducts {
 
     public final int productId;
     public final int productListId;
 
-    public ProductListProductJoin(int productId, int productListId) {
+    public ProductListWithProducts(int productId, int productListId) {
         this.productId = productId;
         this.productListId = productListId;
     }

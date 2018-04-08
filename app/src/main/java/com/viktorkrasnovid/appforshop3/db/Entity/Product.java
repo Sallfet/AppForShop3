@@ -39,8 +39,8 @@ public class Product {
     //method for pre-populate DB
     public static Product[] populateDao(){
         return new Product[]{
-                new Product( "Яблоки", 1),
-                new Product("Колбаса", 2)
+                new Product( "Apple", 1),
+                new Product("Kolbasa", 2)
         };
     }
 
