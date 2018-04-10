@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AppForShop#3</string>
+    <string name="create">CREATE</string>
+    <string name="new_list">New list</string>
+    <string name="count">Count</string>
+    <string name="price">Price</string>
+</resources>

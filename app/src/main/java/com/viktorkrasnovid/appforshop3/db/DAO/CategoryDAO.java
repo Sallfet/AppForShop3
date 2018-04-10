@@ -23,7 +23,7 @@ public interface CategoryDAO {
     LiveData<List<Category>> getAllCategories();
 
     @Query("SELECT * FROM category WHERE id = :id")
-    Category getById(int id);
+    Category getById(long id);
 
     @Insert
     long[] insertAll(Category... categories);

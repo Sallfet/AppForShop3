@@ -1,4 +1,4 @@
-package com.viktorkrasnovid.appforshop3.model;
+package com.viktorkrasnovid.appforshop3.viewModels;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;

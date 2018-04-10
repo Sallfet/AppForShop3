@@ -49,10 +49,7 @@ public class SimpleProductAdapter extends BaseAdapter {
             view = this.inflater.inflate(R.layout.product_choose_item, parent, false);
         }
 
-        view.setOnClickListener(v -> {
-            p.incrementCount();
-            notifyDataSetChanged();//todo replace for DiffUtil
-        });
+
 
         ((TextView) view.findViewById(R.id.product_name)).setText(p.getName());
         ((TextView) view.findViewById(R.id.product_count)).setText(String.valueOf(p.getCount()));

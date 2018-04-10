@@ -2,17 +2,10 @@ package com.viktorkrasnovid.appforshop3;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.viktorkrasnovid.appforshop3.adapters.SimpleProductAdapter;
@@ -21,13 +14,12 @@ import com.viktorkrasnovid.appforshop3.db.DBUtils;
 import com.viktorkrasnovid.appforshop3.db.Entity.Product;
 import com.viktorkrasnovid.appforshop3.db.Entity.ProductList;
 import com.viktorkrasnovid.appforshop3.db.Entity.ProductListWithProducts;
-import com.viktorkrasnovid.appforshop3.model.Measure;
 import com.viktorkrasnovid.appforshop3.model.ProductListKind;
-import com.viktorkrasnovid.appforshop3.model.ProductViewModel;
+import com.viktorkrasnovid.appforshop3.viewModels.ProductViewModel;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ShoppingListCreating extends AppCompatActivity {
 
@@ -36,6 +28,7 @@ public class ShoppingListCreating extends AppCompatActivity {
     Button mic;
     ProductList newProductList;
     LiveData<List<Product>> data;
+    Set<Product> selectedProducts = new HashSet<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +45,12 @@ public class ShoppingListCreating extends AppCompatActivity {
             SimpleProductAdapter productsAdapter = new SimpleProductAdapter(this, products);
             productList.setAdapter(productsAdapter);
         });
+
+        productList.setOnItemClickListener((parent, view, position, id) -> {
+            Product p = (Product) parent.getAdapter().getItem(position);
+            p.incrementCount();
+            selectedProducts.add(p);
+        });
     }
 
     @Override
@@ -60,10 +59,8 @@ public class ShoppingListCreating extends AppCompatActivity {
         //todo set description to a newProductList
         Long productListId = DBUtils.executeAndGet(() -> AppDatabase.getDatabase(this).productListDAO().insert(this.newProductList));
 
-        for (Product product : data.getValue()) {
-            if (product.getCount() > 0) {
-                DBUtils.execute(() -> AppDatabase.getDatabase(this).productListWithProductsDAO().insert(new ProductListWithProducts(product.getId(), productListId)));
-            }
+        for (Product product : selectedProducts) {
+            DBUtils.execute(() -> AppDatabase.getDatabase(this).productListWithProductsDAO().insert(new ProductListWithProducts(product.getId(), productListId, product.getCount())));
         }
     }
 }

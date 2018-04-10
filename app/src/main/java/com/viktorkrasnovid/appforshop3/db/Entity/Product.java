@@ -15,6 +15,7 @@ public class Product {
     private int id;
     private final String name;
     private final long categoryId;
+    @Ignore
     private int count;
     private int measureId;
 
@@ -68,7 +69,6 @@ public class Product {
         this.measureId = measureId;
     }
 
-
     public void incrementCount() {
         this.count++;
     }
@@ -77,5 +77,20 @@ public class Product {
         if (this.count > 0) {
             this.count--;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Product product = (Product) o;
+
+        return id == product.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
     }
 }
