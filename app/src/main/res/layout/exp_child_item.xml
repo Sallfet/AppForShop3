@@ -15,7 +15,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/product_name"
+            android:id="@+id/exp_product_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
 
@@ -31,18 +31,10 @@
         android:weightSum="100">
 
         <TextView
-            android:id="@+id/product_count"
+            android:id="@+id/exp_product_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="50" />
-
-        <Button
-            android:id="@+id/decrementProduct"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:focusable="false"
-            tools:text="Del" />
     </LinearLayout>
 
 

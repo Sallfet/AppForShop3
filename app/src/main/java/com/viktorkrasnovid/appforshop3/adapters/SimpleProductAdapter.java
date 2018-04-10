@@ -50,7 +50,6 @@ public class SimpleProductAdapter extends BaseAdapter {
         }
 
 
-
         ((TextView) view.findViewById(R.id.product_name)).setText(p.getName());
         ((TextView) view.findViewById(R.id.product_count)).setText(String.valueOf(p.getCount()));
         ((Button) (view.findViewById(R.id.decrementProduct))).setOnClickListener(v -> {

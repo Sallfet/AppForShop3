@@ -14,15 +14,11 @@ import android.arch.persistence.room.ForeignKey;
                                    childColumns = "productListId")})
 public class ProductListWithProducts {
 
-    public final long productId;
-    public final long productListId;
-    public final long productCount;
-
-    public ProductListWithProducts(long productId, long productListId, long productCount) {
-        this.productId = productId;
-        this.productListId = productListId;
-        this.productCount = productCount;
-    }
+    public long productId;
+    public long productListId;
+    public long count;
+    public long measureId;
+    public String notes;
 
     public long getProductId() {
         return productId;
@@ -33,6 +29,34 @@ public class ProductListWithProducts {
     }
 
     public long getProductCount() {
-        return productCount;
+        return count;
+    }
+
+    public void setProductId(long productId) {
+        this.productId = productId;
+    }
+
+    public void setProductListId(long productListId) {
+        this.productListId = productListId;
+    }
+
+    public void setProductCount(long productCount) {
+        this.count = productCount;
+    }
+
+    public long getProductMeasureId() {
+        return measureId;
+    }
+
+    public void setProductMeasureId(long productMeasureId) {
+        this.measureId = productMeasureId;
+    }
+
+    public String getProductNotes() {
+        return notes;
+    }
+
+    public void setProductNotes(String productNotes) {
+        this.notes = productNotes;
     }
 }

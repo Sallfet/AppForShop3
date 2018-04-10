@@ -1,10 +1,13 @@
 package com.viktorkrasnovid.appforshop3.adapters;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.TextView;
 
+import com.viktorkrasnovid.appforshop3.R;
 import com.viktorkrasnovid.appforshop3.db.AppDatabase;
 import com.viktorkrasnovid.appforshop3.db.DBUtils;
 import com.viktorkrasnovid.appforshop3.db.Entity.Category;
@@ -15,15 +18,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
     private List<ProductGroup> groups;
     private Context context;
+    private LayoutInflater inflater;
 
     public MyExpandableListAdapter(Context context, List<Product> products) {
         this.groups = mapProductsToGroupProducts(products);
         this.context = context;
+        this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -63,12 +67,39 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        return null;
+
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.exp_group_item, null);
+        }
+
+        if (isExpanded){
+            //Изменяем что-нибудь, если текущая Group раскрыта
+        }
+        else{
+            //Изменяем что-нибудь, если текущая Group скрыта
+        }
+
+        TextView textGroup = convertView.findViewById(R.id.exp_group);
+        ProductGroup group = (ProductGroup) getGroup(groupPosition);
+        textGroup.setText(group.getName());
+
+        return convertView;
     }
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        return null;
+        View view = convertView;
+
+        Product p = (Product) getChild(groupPosition, childPosition);
+
+        if (view == null) {
+            view = this.inflater.inflate(R.layout.exp_child_item, null);
+        }
+
+        ((TextView) view.findViewById(R.id.exp_product_name)).setText(p.getName());
+        ((TextView) view.findViewById(R.id.exp_product_count)).setText(String.valueOf(p.getCount()));
+
+        return view;
     }
 
     @Override

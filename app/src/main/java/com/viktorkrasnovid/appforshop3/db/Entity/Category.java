@@ -8,13 +8,8 @@ public class Category {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private final String name;
-    private final String color;
-
-    public Category(String name, String color) {
-        this.name = name;
-        this.color = color;
-    }
+    private String name;
+    private String color;
 
     public int getId() {
         return id;
@@ -33,9 +28,21 @@ public class Category {
     }
 
     public static Category[] populateData() {
+        Category fruits = new Category();
+        fruits.setName("Fruits");
+        Category meat = new Category();
+        meat.setName("Meat");
         return new Category[]{
-                new Category("Fruits", "Yellow"),
-                new Category("Meat", "Red")
+                fruits,
+                meat
         };
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

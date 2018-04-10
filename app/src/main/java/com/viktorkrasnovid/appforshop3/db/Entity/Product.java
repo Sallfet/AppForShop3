@@ -13,60 +13,31 @@ public class Product {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private final String name;
-    private final long categoryId;
-    @Ignore
-    private int count;
-    private int measureId;
-
-    public Product(String name, long categoryId) {
-        this.name = name;
-        this.categoryId = categoryId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public long getCategoryId() {
-        return categoryId;
-    }
+    private String name;
+    private String notes;
+    private long categoryId;
+    private long count;
+    private long measureId;
+    private long price;
 
     //method for pre-populate DB
     public static Product[] populateDao(){
+        Product apple = new Product();
+        apple.setName("Apple");
+        apple.setCategoryId(1);
+        Product kolbasa = new Product();
+        kolbasa.setName("Kolbasa");
+        kolbasa.setCategoryId(2);
+
         return new Product[]{
-                new Product( "Apple", 1),
-                new Product("Kolbasa", 2)
+                apple,
+                kolbasa
         };
     }
 
     @Override
     public String toString() {
         return this.name;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    public int getMeasureId() {
-        return measureId;
-    }
-
-    public void setMeasureId(int measureId) {
-        this.measureId = measureId;
     }
 
     public void incrementCount() {
@@ -92,5 +63,61 @@ public class Product {
     @Override
     public int hashCode() {
         return id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public long getCount() {
+        return count;
+    }
+
+    public void setCount(long count) {
+        this.count = count;
+    }
+
+    public long getMeasureId() {
+        return measureId;
+    }
+
+    public void setMeasureId(long measureId) {
+        this.measureId = measureId;
+    }
+
+    public long getPrice() {
+        return price;
+    }
+
+    public void setPrice(long price) {
+        this.price = price;
     }
 }

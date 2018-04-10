@@ -24,8 +24,6 @@ import java.util.Map;
 
 public class ShoppingListActivity extends AppCompatActivity {
 
-    List<List<Product>> groups;
-
     ExpandableListView shoppingList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +39,5 @@ public class ShoppingListActivity extends AppCompatActivity {
             MyExpandableListAdapter expandableListAdapter = new MyExpandableListAdapter(this, products);
             shoppingList.setAdapter(expandableListAdapter);
         });
-
-
-
     }
-
-
 }

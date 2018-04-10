@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.viktorkrasnovid.appforshop3.adapters.ShoppingListAdapter;
 import com.viktorkrasnovid.appforshop3.db.Entity.ProductList;
 import com.viktorkrasnovid.appforshop3.viewModels.ShoppingListViewModel;
 
@@ -25,13 +26,14 @@ public class MainActivity extends AppCompatActivity {
         LiveData<List<ProductList>> testData = ViewModelProviders.of(this).get(ShoppingListViewModel.class).getData();
 
         testData.observe(this, products -> {
-            ArrayAdapter<ProductList> testAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, products);
+            ArrayAdapter<ProductList> testAdapter = new ShoppingListAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, products);
             shopingListsList.setAdapter(testAdapter);
         });
 
         shopingListsList.setOnItemClickListener((parent, view, position, id) -> {
             Intent intent = new Intent(this, ShoppingListActivity.class);
             intent.putExtra("ProductListId", id);
+            startActivity(intent);
         });
 
         FloatingActionButton testButton = findViewById(R.id.add_new_shopping_list);

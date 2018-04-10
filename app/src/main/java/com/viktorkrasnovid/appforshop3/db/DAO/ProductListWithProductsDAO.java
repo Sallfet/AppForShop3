@@ -25,7 +25,10 @@ public interface ProductListWithProductsDAO {
     @Delete
     void delete(ProductListWithProducts join);
 
-    @Query("SELECT productId, productCount, productId, name FROM product INNER JOIN productlist_product_join on product.id = productlist_product_join.productId WHERE productListId = :id")//todo understand which column needs in select
+    @Query("SELECT  p.id, p.name, p.categoryId, p.price, ppj.count, ppj.measureId, ppj.notes, ppj.productListId " +
+            "FROM product p " + "INNER JOIN productlist_product_join ppj " +
+            "ON p.id = ppj.productId " +
+            "WHERE productListId = :id")
     LiveData<List<Product>> getAllProductsByProductListId(long id);
 
     @Query("SELECT * FROM productlist INNER JOIN productlist_product_join on id = productlistId WHERE productlist.kindId = :kind")

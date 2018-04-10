@@ -4,7 +4,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity
-public class Measure {
+public class Measure {//todo add annotations for measure
 
     @PrimaryKey
     private long id;

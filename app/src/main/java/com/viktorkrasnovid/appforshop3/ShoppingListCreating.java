@@ -37,19 +37,20 @@ public class ShoppingListCreating extends AppCompatActivity {
         String listName = getIntent().getStringExtra("listName");
         this.newProductList = new ProductList(listName, "", ProductListKind.SHOPPING_LIST.getId());
 
-        productChoose = findViewById(R.id.products_autocomplite);
-        productList = findViewById(R.id.creating_product_list);
+        this.productChoose = findViewById(R.id.products_autocomplite);
+        this.productList = findViewById(R.id.creating_product_list);
 
-        data = ViewModelProviders.of(this).get(ProductViewModel.class).getData();
-        data.observe(this, products -> {
+        this.data = ViewModelProviders.of(this).get(ProductViewModel.class).getData();
+        this.data.observe(this, products -> {
             SimpleProductAdapter productsAdapter = new SimpleProductAdapter(this, products);
             productList.setAdapter(productsAdapter);
         });
 
-        productList.setOnItemClickListener((parent, view, position, id) -> {
+        this.productList.setOnItemClickListener((parent, view, position, id) -> {
             Product p = (Product) parent.getAdapter().getItem(position);
             p.incrementCount();
             selectedProducts.add(p);
+            ((SimpleProductAdapter) parent.getAdapter()).notifyDataSetChanged();//todo replace for DiffUtils or move to adapter
         });
     }
 
@@ -60,7 +61,13 @@ public class ShoppingListCreating extends AppCompatActivity {
         Long productListId = DBUtils.executeAndGet(() -> AppDatabase.getDatabase(this).productListDAO().insert(this.newProductList));
 
         for (Product product : selectedProducts) {
-            DBUtils.execute(() -> AppDatabase.getDatabase(this).productListWithProductsDAO().insert(new ProductListWithProducts(product.getId(), productListId, product.getCount())));
+            ProductListWithProducts list = new ProductListWithProducts();//todo leave all except productid,
+            list.setProductId(product.getId());
+            list.setProductListId(productListId);
+            list.setProductCount(product.getCount());
+            list.setProductMeasureId(product.getMeasureId());
+            list.setProductNotes(product.getNotes() == null ? "" : product.getNotes());
+            DBUtils.execute(() -> AppDatabase.getDatabase(this).productListWithProductsDAO().insert(list));
         }
     }
 }
