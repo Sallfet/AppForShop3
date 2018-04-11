@@ -40,14 +40,16 @@ public class Product {
         return this.name;
     }
 
-    public void incrementCount() {
-        this.count++;
+    public long incrementCountAndGet() {
+        return ++this.count;
     }
 
-    public void decrementCount() {
+    public long decrementCountAndGet() {
         if (this.count > 0) {
             this.count--;
         }
+
+        return count;
     }
 
     @Override

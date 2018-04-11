@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.viktorkrasnovid.appforshop3.R;
@@ -52,12 +53,26 @@ public class SimpleProductAdapter extends BaseAdapter {
 
         ((TextView) view.findViewById(R.id.product_name)).setText(p.getName());
         ((TextView) view.findViewById(R.id.product_count)).setText(String.valueOf(p.getCount()));
-        ((Button) (view.findViewById(R.id.decrementProduct))).setOnClickListener(v -> {
-            p.decrementCount();
-            notifyDataSetChanged();//todo replace for DiffUtil
+        (view.findViewById(R.id.decrementProduct)).setOnClickListener(v -> {
+            long count = p.decrementCountAndGet();
+            updateView(position, parent, count);
         });
 
 
         return view;
+    }
+
+    public void updateView(int index, ViewGroup parent, long count){
+        ListView listView = (ListView) parent;
+
+        View v = listView.getChildAt(index - listView.getFirstVisiblePosition());
+
+        if(v == null)
+            return;
+
+        TextView textView = v.findViewById(R.id.product_count);
+
+        textView.setText(String.valueOf(count));
+        System.out.println("Data changed!");
     }
 }

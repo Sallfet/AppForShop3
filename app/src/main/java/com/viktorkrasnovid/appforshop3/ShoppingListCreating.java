@@ -4,6 +4,8 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,6 +31,7 @@ public class ShoppingListCreating extends AppCompatActivity {
     ProductList newProductList;
     LiveData<List<Product>> data;
     Set<Product> selectedProducts = new HashSet<>();
+    SimpleProductAdapter productsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,31 +45,27 @@ public class ShoppingListCreating extends AppCompatActivity {
 
         this.data = ViewModelProviders.of(this).get(ProductViewModel.class).getData();
         this.data.observe(this, products -> {
-            SimpleProductAdapter productsAdapter = new SimpleProductAdapter(this, products);
+            productsAdapter = new SimpleProductAdapter(this, products);
             productList.setAdapter(productsAdapter);
         });
 
         this.productList.setOnItemClickListener((parent, view, position, id) -> {
             Product p = (Product) parent.getAdapter().getItem(position);
-            p.incrementCount();
+            this.productsAdapter.updateView(position, parent, p.incrementCountAndGet());
             selectedProducts.add(p);
-            ((SimpleProductAdapter) parent.getAdapter()).notifyDataSetChanged();//todo replace for DiffUtils or move to adapter
         });
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        //todo set description to a newProductList
         Long productListId = DBUtils.executeAndGet(() -> AppDatabase.getDatabase(this).productListDAO().insert(this.newProductList));
 
         for (Product product : selectedProducts) {
-            ProductListWithProducts list = new ProductListWithProducts();//todo leave all except productid,
+            ProductListWithProducts list = new ProductListWithProducts();
             list.setProductId(product.getId());
             list.setProductListId(productListId);
             list.setProductCount(product.getCount());
-            list.setProductMeasureId(product.getMeasureId());
-            list.setProductNotes(product.getNotes() == null ? "" : product.getNotes());
             DBUtils.execute(() -> AppDatabase.getDatabase(this).productListWithProductsDAO().insert(list));
         }
     }
