@@ -23,8 +23,9 @@ import java.util.List;
 public class SimpleProductAdapter extends ArrayAdapter<Product> {
 
     private List<Product> products;
-    private List<Product> list;
+    private List<Product> tempList;
     private LayoutInflater inflater;
+    private boolean lastSearchZeroResult;
 
     public SimpleProductAdapter(Context context,int resource, List<Product> productList) {
         super(context, resource, productList);
@@ -84,7 +85,7 @@ public class SimpleProductAdapter extends ArrayAdapter<Product> {
     }
 
     @Override
-    public Filter getFilter() {//fixme - case: type letters witch productc contais then type letter out of word when erase it - list is empty
+    public Filter getFilter() {
 
         return new Filter() {
 
@@ -92,9 +93,11 @@ public class SimpleProductAdapter extends ArrayAdapter<Product> {
             @Override
             protected void publishResults(CharSequence constraint,FilterResults results) {
 
+                lastSearchZeroResult = results.count == 0;
                 products = (List<Product>) results.values;
                 sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
                 notifyDataSetChanged();
+
             }
 
             @Override
@@ -102,14 +105,18 @@ public class SimpleProductAdapter extends ArrayAdapter<Product> {
                 FilterResults results = new FilterResults();
                 List<Product> FilteredArrList = new ArrayList<>();
 
-                if (list == null) {
-                    list = new ArrayList<>(products);
+                if (tempList == null) {
+                    tempList = new ArrayList<>(products);
                 }
 
-                if (constraint == null || constraint.length() == 0) {
+                if (lastSearchZeroResult) {
+                    products = tempList;
+                    lastSearchZeroResult = false;
+                }
 
-                    results.count = list.size();
-                    results.values = list;
+                if (constraint == null || constraint.length() == 0 ) {
+                    results.count = tempList.size();
+                    results.values = tempList;
                 } else {
                     constraint = constraint.toString().toLowerCase();
                     for (int i = 0; i < products.size(); i++) {
