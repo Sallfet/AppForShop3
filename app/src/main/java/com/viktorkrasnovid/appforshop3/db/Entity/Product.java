@@ -28,10 +28,18 @@ public class Product {
         Product kolbasa = new Product();
         kolbasa.setName("Kolbasa");
         kolbasa.setCategoryId(2);
+        Product appleJuice = new Product();
+        appleJuice.setName("Apple juice");
+        appleJuice.setCategoryId(1);
+        Product appleJelly = new Product();
+        appleJelly.setName("Apple jelly");
+        appleJelly.setCategoryId(1);
 
         return new Product[]{
                 apple,
-                kolbasa
+                kolbasa,
+                appleJuice,
+                appleJelly
         };
     }
 

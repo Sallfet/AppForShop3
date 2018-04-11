@@ -4,6 +4,8 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -42,10 +44,24 @@ public class ShoppingListCreating extends AppCompatActivity {
 
         this.productChoose = findViewById(R.id.products_autocomplite);
         this.productList = findViewById(R.id.creating_product_list);
+        this.productChoose.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                System.out.println("CHANGED!!");
+
+                productsAdapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
 
         this.data = ViewModelProviders.of(this).get(ProductViewModel.class).getData();
         this.data.observe(this, products -> {
-            productsAdapter = new SimpleProductAdapter(this, products);
+            productsAdapter = new SimpleProductAdapter(this, R.layout.product_choose_item, products);
             productList.setAdapter(productsAdapter);
         });
 
